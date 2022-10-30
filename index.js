@@ -33,9 +33,9 @@ function geojsontoosm(geojson) {
     });
 
     //console.log(nodes, ways, relations)
-    var lastNodeId = -1,
-        lastWayId = -1,
-        lastRelationId = -1
+    var lastNodeId = 1,
+        lastWayId = 1,
+        lastRelationId = 1
     function jxonTags(tags) {
         var res = []
         for (var k in tags) {
@@ -51,7 +51,7 @@ function geojsontoosm(geojson) {
             "@version": "0.6",
             "@generator": "geojsontoosm",
             "node": nodes.map(function(node) {
-                node.id = lastNodeId--
+                node.id = lastNodeId++
                 return {
                     "@id": node.id,
                     "@lat": node.lat,
@@ -61,7 +61,7 @@ function geojsontoosm(geojson) {
                 }
             }),
             "way": ways.map(function(way) {
-                way.id = lastWayId--
+                way.id = lastWayId++
                 return {
                     "@id": way.id,
                     "nd": way.nodes.map(function(nd) { return {"@ref": nd.id} }),
@@ -69,7 +69,7 @@ function geojsontoosm(geojson) {
                 }
             }),
             "relation": relations.map(function(relation) {
-                relation.id = lastRelationId--
+                relation.id = lastRelationId++
                 return {
                     "@id": relation.id,
                     "member": relation.members.map(function(member) {
